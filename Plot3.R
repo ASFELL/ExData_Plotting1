@@ -1,0 +1,12 @@
+household_power_consumption <- read.csv("/media/asier/Vault1/Cursos/Coursera - Exploratory Data Analysis/household_power_consumption.txt", sep=";")
+x <- household_power_consumption[household_power_consumption$Date %in% c('1/2/2007','2/2/2007'),]
+weekdays <- strptime(paste(x$Date, x$Time, sep=" "), "%d/%m/%Y %H:%M:%S")
+x$Sub_metering_1 <- as.numeric(x$Sub_metering_1)
+x$Sub_metering_2 <- as.numeric(x$Sub_metering_2)
+x$Sub_metering_3 <- as.numeric(x$Sub_metering_3)
+png(filename='plot3.png',width=480,height=480)
+plot(weekdays,x$Sub_metering_1,xlab='',ylab='Energy Submetering',type='l')
+lines(weekdays,x$Sub_metering_2,type='l',col='red')
+lines(weekdays,x$Sub_metering_3,type='l',col='blue')
+legend('topright',c('Submetering_1','Submetering_2','Submetering_3'),col=c('black','red','blue'),lty=1,lwd=2)
+dev.off()
